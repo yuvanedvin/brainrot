@@ -14,7 +14,7 @@ load_dotenv()  # Load environment variables from .env
 MODEL_PATH = "distilbert-base-uncased"
 tokenizer = BertTokenizer.from_pretrained(MODEL_PATH)
 model = BertForSequenceClassification.from_pretrained(MODEL_PATH, num_labels=3)
-app = Flask(__name__)
+app = Flask(name, template_folder='.')
 CORS(app)
 
 GEMINI_API_KEY = os.getenv("GOOGLE_API_KEY") # Ensure GOOGLE_API_KEY is in .env, not GEMINI_API_KEY
