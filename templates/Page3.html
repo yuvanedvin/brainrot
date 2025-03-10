@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Assessment Result</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background: #000; /* Space black background */
+      color: #fff;
+      padding: 2rem;
+      text-align: center;
+      animation: fadeIn 1s ease-in-out;
+      position: relative;
+      overflow: hidden;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.9); }
+      to { opacity: 1; transform: scale(1); }
+    }
+    @keyframes moveEllipse {
+      0% { transform: translate(0,0); }
+      50% { transform: translate(50px, -50px); }
+      100% { transform: translate(0,0); }
+    }
+    .background-ellipses {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      overflow: hidden;
+    }
+    .ellipse {
+      position: absolute;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+      animation: moveEllipse 10s ease-in-out infinite alternate;
+    }
+    .ellipse:nth-child(1) {
+      width: 150px;
+      height: 80px;
+      top: 10%;
+      left: 5%;
+      animation-duration: 8s;
+    }
+    .ellipse:nth-child(2) {
+      width: 200px;
+      height: 100px;
+      top: 40%;
+      left: 75%;
+      animation-duration: 12s;
+    }
+    .ellipse:nth-child(3) {
+      width: 100px;
+      height: 60px;
+      top: 70%;
+      left: 20%;
+      animation-duration: 10s;
+    }
+    .container {
+      background: rgba(0, 0, 0, 0.7);
+      padding: 2rem;
+      border-radius: 15px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.8);
+      text-align: center;
+      backdrop-filter: blur(10px);
+      z-index: 1;
+      position: relative;
+      animation: fadeIn 1s ease-in-out;
+    }
+    .logo {
+      width: 100px;
+      display: block;
+      margin: 0 auto 1.5rem;
+    }
+    h1 {
+      font-size: 2.5rem;
+      color: #ff6f61;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+      margin-bottom: 1.5rem;
+    }
+    .result {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      color: #ff6f61;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    }
+    .suggestions {
+      background: rgba(0, 0, 0, 0.8);
+      padding: 1.5rem;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.8);
+      text-align: left;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .suggestions:hover {
+      transform: scale(1.02);
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.8);
+    }
+    ul {
+      list-style-type: none;
+      padding: 0;
+    }
+    li {
+      margin: 0.75rem 0;
+      font-size: 1.1rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="background-ellipses">
+    <div class="ellipse"></div>
+    <div class="ellipse"></div>
+    <div class="ellipse"></div>
+  </div>
+  <div class="container">
+    <img src="{{ url_for('static', filename='BR.png') }}" alt="Logo" class="logo">
+    <h1>Your Assessment Result</h1>
+    <div class="result" id="result">Mild</div>
+    <div class="container">
+      <h1>suggestions for you</h1>
+      <p>{{ response }}</p>
+    </div>
+  </div>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const result = JSON.parse(localStorage.getItem('result'));
+      document.getElementById('result').textContent = result.label;
+      document.querySelector('.suggestions ul').innerHTML = <li>${result.recommendation}</li>;
+    });
+  </script>
+</body>
+</html> 
