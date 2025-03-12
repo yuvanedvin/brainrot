@@ -4,3 +4,6 @@ pandas
 torch
 transformers
 gunicorn
+google-generativeai
+dotenve
+requests
