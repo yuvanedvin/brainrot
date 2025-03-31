@@ -18,7 +18,7 @@ app = Flask(__name__, template_folder='templates')
 CORS(app)
 
 GEMINI_API_KEY = os.getenv("GOOGLE_API_KEY") # Ensure GOOGLE_API_KEY is in .env, not GEMINI_API_KEY
-genai.configure(api_key="AIzaSyDhpYZU45rGgVao4cshIamSHkjAd7DKvyw")
+genai.configure(api_key="") # PROVIDE API KEY
 gemini_model = genai.GenerativeModel("gemini-2.0-flash")
 
 
